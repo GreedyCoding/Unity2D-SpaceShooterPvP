@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,9 @@ public class PlayerController : MonoBehaviour, IHealable
     [Header("Movement Handling")]
     [SerializeField] PlayerInputHandler _playerInputHandler;
     [SerializeField] Rigidbody2D _rigidBody;
+
+    [Header("Camera")]
+    [SerializeField] Camera _mainCamera;
 
     [Header("Damage Flash")]
     [SerializeField] SpriteRenderer _shipSpriteRenderer;
@@ -62,7 +66,7 @@ public class PlayerController : MonoBehaviour, IHealable
 
     private void Start()
     {
-        SetGunType(GunTypeEnum.singleShot, true, false);
+        SetGunType(GunTypeEnum.quadShot, true, false);
         SetStats();
 
         _shipSpriteRenderer.material = _defaultShipMaterial;
@@ -79,6 +83,7 @@ public class PlayerController : MonoBehaviour, IHealable
     private void FixedUpdate()
     {
         HandleMovement();
+        _mainCamera.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _mainCamera.transform.position.z);
     }
 
     private void RaisePlayerStatsChangedEvents()

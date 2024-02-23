@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4362984915923774833}
   - component: {fileID: 1719154057760829929}
   - component: {fileID: 1184199562173201726}
-  - component: {fileID: 5619331466179644975}
+  - component: {fileID: 1350233789026367285}
   m_Layer: 8
   m_Name: SingleShotPrefab
   m_TagString: ProjectilePlayer
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1420399963, guid: 58536ff0abd55014a89673ec304a5a17, type: 3}
+  m_Sprite: {fileID: 1122894951, guid: 651f26b1e7e0d0d47a2bb0f885c27c1c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 1718028422146164629}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fd3602aae62d1714b9c93e248a368ddb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2b41af35d134c264d8fa81ae0ad3a88d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -181,7 +181,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5619331466179644975
+--- !u!114 &1350233789026367285
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,6 +190,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1718028422146164629}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bc77fbe3d19e834e8c2d281c1caf1b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 361076ef3670a794ab92196ce017fe74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
