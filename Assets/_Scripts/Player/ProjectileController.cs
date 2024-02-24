@@ -12,7 +12,7 @@ public class PlayerProjectileController : MonoBehaviour
     private void Start()
     {
         GetComponents();
-        SetProjectileDamage();
+        ProjectileDamage = 1f;
     }
 
     private void Update()
@@ -33,28 +33,9 @@ public class PlayerProjectileController : MonoBehaviour
             other.GetComponent<IDamageable>().TakeDamage(ProjectileDamage);
             this.gameObject.SetActive(false);          
         }
-        else if (other.gameObject.CompareTag(Constants.WALL_LEFT_TAG) || other.gameObject.CompareTag(Constants.WALL_RIGHT_TAG))
+        else if (other.gameObject.CompareTag(Constants.BORDER_LEFT_TAG) || other.gameObject.CompareTag(Constants.BORDER_RIGHT_TAG) || other.gameObject.CompareTag(Constants.BORDER_TOP_TAG) || other.gameObject.CompareTag(Constants.BORDER_BOTTOM_TAG))
         {
             this.gameObject.SetActive(false);
         }
      }
-
-    private void SetProjectileDamage()
-    {
-        switch (_playerController.CurrentGunType)
-        {
-            case GunTypeEnum.singleShot:
-                ProjectileDamage = 5f;
-                break;
-            case GunTypeEnum.doubleShot:
-                ProjectileDamage = 6f;
-                break;
-            case GunTypeEnum.tripleShot:
-                ProjectileDamage = 8f;
-                break;
-            case GunTypeEnum.quadShot:
-                ProjectileDamage = 7f;
-                break;
-        }
-    }
 }

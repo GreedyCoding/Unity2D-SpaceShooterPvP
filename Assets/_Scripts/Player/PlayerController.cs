@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour, IHealable
 
     private void Start()
     {
-        SetGunType(GunTypeEnum.quadShot, true, false);
+        SetGunType(GunTypeEnum.doubleShot, true, false);
         SetStats();
 
         _shipSpriteRenderer.material = _defaultShipMaterial;
@@ -174,16 +174,16 @@ public class PlayerController : MonoBehaviour, IHealable
             switch (CurrentGunType)
             {
                 case GunTypeEnum.singleShot:
-                    HandlePlayerProjectileInstanciation();
+                    HandlePlayerProjectileInstantiation();
                     break;
                 case GunTypeEnum.doubleShot:
-                    HandlePlayerProjectileInstanciation();
+                    HandlePlayerProjectileInstantiation();
                     break;
                 case GunTypeEnum.tripleShot:
-                    HandlePlayerProjectileInstanciation();
+                    HandlePlayerProjectileInstantiation();
                     break;
                 case GunTypeEnum.quadShot:
-                    HandlePlayerProjectileInstanciation();
+                    HandlePlayerProjectileInstantiation();
                     break;
                 default:
                     break;
@@ -191,23 +191,28 @@ public class PlayerController : MonoBehaviour, IHealable
         }
     }
 
-    private void HandlePlayerProjectileInstanciation()
+    /// <summary>   
+    /// This function gets player projectiles from the object pool and moves them to the players position
+    /// </summary>
+    /// <info>
+    /// Handling of the children of the different projectiles needs to be done first,
+    /// Otherwise the rotation and position of the player will missalign the projectiles
+    /// </info>
+    private void HandlePlayerProjectileInstantiation()
     {
         GameObject playerProjectile = ObjectPoolPlayerProjectiles.SharedInstance.GetPooledObject();
-        playerProjectile.transform.position = this.transform.position;
-        playerProjectile.transform.rotation = this.transform.rotation;
-        playerProjectile.SetActive(true);
 
-        _audioSource.pitch = UnityEngine.Random.Range(0.85f, 1.15f);
-        _audioSource.Play();
+        float shotSpacing = 0.3f;
+        float doubleShotMaxOffsetLeft = -0.15f;
+        float quadShotMaxOffsetLeft = -0.45f;
 
-        //Handle children of the different projectiles
-        if(CurrentGunType == GunTypeEnum.doubleShot || CurrentGunType == GunTypeEnum.quadShot)
+        if (CurrentGunType == GunTypeEnum.doubleShot)
         {
             foreach (Transform child in playerProjectile.transform)
             {
                 child.gameObject.SetActive(true);
-                child.gameObject.transform.position = new Vector2(child.gameObject.transform.position.x, this.transform.position.y);
+                child.gameObject.transform.position = new Vector2(doubleShotMaxOffsetLeft, 0);
+                doubleShotMaxOffsetLeft += shotSpacing;
             }
         }
         else if (CurrentGunType == GunTypeEnum.tripleShot)
@@ -218,6 +223,22 @@ public class PlayerController : MonoBehaviour, IHealable
                 child.gameObject.transform.position = this.transform.position;
             }
         }
+        else if (CurrentGunType == GunTypeEnum.quadShot)
+        {
+            foreach (Transform child in playerProjectile.transform)
+            {
+                child.gameObject.SetActive(true);
+                child.gameObject.transform.position = new Vector2(quadShotMaxOffsetLeft, 0);
+                quadShotMaxOffsetLeft += shotSpacing;
+            }
+        }
+
+        playerProjectile.transform.position = this.transform.position;
+        playerProjectile.transform.rotation = this.transform.rotation;
+        playerProjectile.SetActive(true);
+
+        _audioSource.pitch = UnityEngine.Random.Range(0.85f, 1.15f);
+        _audioSource.Play();
     }
 
     internal void FreezePlayer()

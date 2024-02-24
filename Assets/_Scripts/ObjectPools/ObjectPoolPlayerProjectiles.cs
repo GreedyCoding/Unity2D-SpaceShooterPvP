@@ -13,13 +13,13 @@ public class ObjectPoolPlayerProjectiles : MonoBehaviour
 
     //Event Channel
     [SerializeField] GunTypeEventChannelSO _gunChangeVoidEventChannelSO;
-    
-    //List of pooled objects
-    public List<GameObject> pooledObjects;
 
     //Objects to pool
+    [SerializeField] int _amountToPool;
     private GameObject _objectToPool;
-    private int _amountToPool;
+
+    //List of pooled objects
+    public List<GameObject> pooledObjects;
 
     void Awake()
     {
@@ -76,19 +76,15 @@ public class ObjectPoolPlayerProjectiles : MonoBehaviour
         {
             case GunTypeEnum.singleShot:
                 _objectToPool = _playerController.SingleShotPrefab;
-                _amountToPool = 10;
                 break;
             case GunTypeEnum.doubleShot:
                 _objectToPool = _playerController.DoubleShotPrefab;
-                _amountToPool = 10;
                 break;
             case GunTypeEnum.tripleShot:
                 _objectToPool = _playerController.TripleShotPrefab;
-                _amountToPool = 10;
                 break;
             case GunTypeEnum.quadShot:
                 _objectToPool = _playerController.QuadShotPrefab;
-                _amountToPool = 10;
                 break;
         }
     }

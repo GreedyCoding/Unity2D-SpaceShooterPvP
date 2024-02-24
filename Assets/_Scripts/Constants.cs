@@ -16,16 +16,12 @@ public static class Constants
     public const string ENEMY_TAG = "Enemy";
     public const string PLAYER_PROJECTILE_TAG = "ProjectilePlayer";
     public const string ENEMY_PROJECTILE_TAG = "ProjectileEnemy";
-    public const string WALL_LEFT_TAG = "WallLeft";
-    public const string WALL_RIGHT_TAG = "WallRight";
+    public const string BORDER_TOP_TAG = "BorderTop";
+    public const string BORDER_BOTTOM_TAG = "BorderBottom";
+    public const string BORDER_LEFT_TAG = "BorderLeft";
+    public const string BORDER_RIGHT_TAG = "BorderRight";
     public const string PROJECTILE_DESTROY_BOX = "ProjectileDestroyBox";
     public const string ITEM_DROP_TAG = "ItemDrop";
-
-    // Upgrades and Money
-    public const string MOVESPEED_UPGRADE_LEVEL = "MoveSpeedUpgradeLevel";
-    public const string BULLET_UPGRADE_LEVEL = "BulletUpgradeLevel";
-    public const string GUN_UPGRADE_LEVEL = "GunUpgradeLevel";
-    public const string MONEY_AMOUNT = "Money";
 
     // Player Animations
     public const string THRUSTER_ANIMATION = "Thruster Animation";
