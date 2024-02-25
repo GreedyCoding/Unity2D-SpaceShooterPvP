@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour, IHealable
 
     private void Start()
     {
-        SetGunType(GunTypeEnum.doubleShot, true, false);
+        SetGunType(GunTypeEnum.tripleShot, true, false);
         SetStats();
 
         _shipSpriteRenderer.material = _defaultShipMaterial;
@@ -196,7 +196,7 @@ public class PlayerController : MonoBehaviour, IHealable
     /// </summary>
     /// <info>
     /// Handling of the children of the different projectiles needs to be done first,
-    /// Otherwise the rotation and position of the player will missalign the projectiles
+    /// Otherwise the rotation and position of the player will missalign with the projectiles
     /// </info>
     private void HandlePlayerProjectileInstantiation()
     {
@@ -206,12 +206,15 @@ public class PlayerController : MonoBehaviour, IHealable
         float doubleShotMaxOffsetLeft = -0.15f;
         float quadShotMaxOffsetLeft = -0.45f;
 
+        float tripleShotAngleOffset = 12f;
+        float tripleShotMaxAngleOffsetLeft = -12f;
+
         if (CurrentGunType == GunTypeEnum.doubleShot)
         {
             foreach (Transform child in playerProjectile.transform)
             {
                 child.gameObject.SetActive(true);
-                child.gameObject.transform.position = new Vector2(doubleShotMaxOffsetLeft, 0);
+                child.gameObject.transform.position = new Vector2(doubleShotMaxOffsetLeft, 0f);
                 doubleShotMaxOffsetLeft += shotSpacing;
             }
         }
@@ -220,7 +223,9 @@ public class PlayerController : MonoBehaviour, IHealable
             foreach (Transform child in playerProjectile.transform)
             {
                 child.gameObject.SetActive(true);
-                child.gameObject.transform.position = this.transform.position;
+                child.gameObject.transform.position = Vector2.zero;
+                child.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, tripleShotMaxAngleOffsetLeft);
+                tripleShotMaxAngleOffsetLeft += tripleShotAngleOffset;
             }
         }
         else if (CurrentGunType == GunTypeEnum.quadShot)
@@ -228,7 +233,7 @@ public class PlayerController : MonoBehaviour, IHealable
             foreach (Transform child in playerProjectile.transform)
             {
                 child.gameObject.SetActive(true);
-                child.gameObject.transform.position = new Vector2(quadShotMaxOffsetLeft, 0);
+                child.gameObject.transform.position = new Vector2(quadShotMaxOffsetLeft, 0f);
                 quadShotMaxOffsetLeft += shotSpacing;
             }
         }

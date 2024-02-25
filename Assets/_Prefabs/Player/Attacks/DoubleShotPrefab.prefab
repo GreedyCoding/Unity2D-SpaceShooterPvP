@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2944178403957654900}
   - component: {fileID: 2365159094706349217}
   - component: {fileID: 8443915002283021321}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Blue Laser Left
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 7375775999014244379}
   - component: {fileID: 3884420186487979386}
   - component: {fileID: 9107179591134281740}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Blue Laser Right
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8158674857042237929}
   - component: {fileID: 6913382214043194174}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DoubleShotPrefab
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}

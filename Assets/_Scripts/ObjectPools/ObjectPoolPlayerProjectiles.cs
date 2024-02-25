@@ -95,6 +95,15 @@ public class ObjectPoolPlayerProjectiles : MonoBehaviour
         {
             if (!pooledObjects[i].activeInHierarchy)
             {
+                //Reset position and rotation of the pooled object and its children
+                pooledObjects[i].transform.position = Vector3.zero;
+                pooledObjects[i].transform.rotation = Quaternion.identity;
+                foreach(Transform child in pooledObjects[i].transform)
+                {
+                    child.transform.position = Vector3.zero;
+                    child.transform.rotation = Quaternion.identity;
+                }
+
                 return pooledObjects[i];
             }
         }

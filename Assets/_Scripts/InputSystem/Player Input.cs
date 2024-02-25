@@ -199,6 +199,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""8737a750-2e6e-4939-8846-57210aa3e27e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""dd4f69de-2aa6-4136-96a0-62e82ae94e39"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",

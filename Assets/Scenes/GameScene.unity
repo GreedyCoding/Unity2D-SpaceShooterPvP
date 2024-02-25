@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 107313043}
   - component: {fileID: 107313045}
   - component: {fileID: 107313044}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ThrusterAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,9 +240,9 @@ GameObject:
   - component: {fileID: 140607975}
   - component: {fileID: 140607977}
   - component: {fileID: 140607976}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BorderRight
-  m_TagString: Untagged
+  m_TagString: BorderRight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,7 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 212493540}
   - component: {fileID: 212493541}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShieldSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,6 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerController: {fileID: 1753530163}
   _gunChangeVoidEventChannelSO: {fileID: 11400000, guid: c81baadaa42e6844eb0ff1f3d4e1f440, type: 2}
+  _amountToPool: 30
   pooledObjects: []
 --- !u!1 &515799379
 GameObject:
@@ -848,9 +849,9 @@ GameObject:
   - component: {fileID: 664253441}
   - component: {fileID: 664253443}
   - component: {fileID: 664253442}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BorderTop
-  m_TagString: Untagged
+  m_TagString: BorderTop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -977,7 +978,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1012032455}
   - component: {fileID: 1012032456}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShipSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1128,9 +1129,9 @@ GameObject:
   - component: {fileID: 1416681654}
   - component: {fileID: 1416681656}
   - component: {fileID: 1416681655}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BorderBottom
-  m_TagString: Untagged
+  m_TagString: BorderBottom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1381,9 +1382,9 @@ GameObject:
   - component: {fileID: 1753530161}
   - component: {fileID: 1753530160}
   - component: {fileID: 1753530159}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1556,7 +1557,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &1753530161
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1665,9 +1666,9 @@ GameObject:
   - component: {fileID: 2061652935}
   - component: {fileID: 2061652937}
   - component: {fileID: 2061652936}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BorderLeft
-  m_TagString: Untagged
+  m_TagString: BorderLeft
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

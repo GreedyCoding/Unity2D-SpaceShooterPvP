@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5764991438826918666}
   - component: {fileID: 3979025813098476717}
   - component: {fileID: 8640960969109810124}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Red Laser Right
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5615173820352534914}
   - component: {fileID: 508851078068697950}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: QuadShotPrefab
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 7456833316496376905}
   - component: {fileID: 8590827941994867676}
   - component: {fileID: 8731060507771868389}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Red Laser Leftest
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 1661600621596624187}
   - component: {fileID: 7898469712648315032}
   - component: {fileID: 9075785262878512132}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Red Laser Rightest
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 2611420370971259162}
   - component: {fileID: 2376868449102051767}
   - component: {fileID: 3169644992851123735}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Red Laser Left
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}

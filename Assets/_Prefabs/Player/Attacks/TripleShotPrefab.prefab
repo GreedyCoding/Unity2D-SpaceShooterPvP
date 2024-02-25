@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1760798231796135746}
   - component: {fileID: 6885346501494142141}
   - component: {fileID: 23628307917256771}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Purple Laser Middle
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 3623583312304398535}
   - component: {fileID: 2691608629657974397}
   - component: {fileID: 2190489451219693348}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Purple Laser Left
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 3915779886591954431}
   - component: {fileID: 1289493415875347864}
   - component: {fileID: 5535176829087811817}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Purple Laser Right
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}
@@ -589,7 +589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4420352620333123208}
   - component: {fileID: 1009646272692136006}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: TripleShotPrefab
   m_TagString: ProjectilePlayer
   m_Icon: {fileID: 0}

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerProjectileController : MonoBehaviour
 {
-    PlayerController _playerController;
-    Rigidbody2D _rigidbody;
+    private PlayerController _playerController;
+    private Rigidbody2D _rigidbody;
 
     public float ProjectileDamage { get; private set; }
 
@@ -31,11 +31,11 @@ public class PlayerProjectileController : MonoBehaviour
         if(other.gameObject.CompareTag(Constants.ENEMY_TAG))
         {
             other.GetComponent<IDamageable>().TakeDamage(ProjectileDamage);
-            this.gameObject.SetActive(false);          
+            this.gameObject.SetActive(false);
         }
         else if (other.gameObject.CompareTag(Constants.BORDER_LEFT_TAG) || other.gameObject.CompareTag(Constants.BORDER_RIGHT_TAG) || other.gameObject.CompareTag(Constants.BORDER_TOP_TAG) || other.gameObject.CompareTag(Constants.BORDER_BOTTOM_TAG))
         {
             this.gameObject.SetActive(false);
         }
-     }
+    }
 }
