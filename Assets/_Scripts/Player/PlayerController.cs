@@ -207,7 +207,10 @@ public class PlayerController : MonoBehaviour, IHealable
         float quadShotMaxOffsetLeft = -0.45f;
 
         float tripleShotAngleOffset = 12f;
-        float tripleShotMaxAngleOffsetLeft = -12f;
+        float tripleShotMaxAngleOffsetRight = 12f;
+
+        float quadShotAngleOffset = 5f;
+        float quadShotMaxAngleOffsetRight = 7.5f;
 
         if (CurrentGunType == GunTypeEnum.doubleShot)
         {
@@ -224,8 +227,8 @@ public class PlayerController : MonoBehaviour, IHealable
             {
                 child.gameObject.SetActive(true);
                 child.gameObject.transform.position = Vector2.zero;
-                child.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, tripleShotMaxAngleOffsetLeft);
-                tripleShotMaxAngleOffsetLeft += tripleShotAngleOffset;
+                child.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, tripleShotMaxAngleOffsetRight);
+                tripleShotMaxAngleOffsetRight -= tripleShotAngleOffset;
             }
         }
         else if (CurrentGunType == GunTypeEnum.quadShot)
@@ -235,6 +238,9 @@ public class PlayerController : MonoBehaviour, IHealable
                 child.gameObject.SetActive(true);
                 child.gameObject.transform.position = new Vector2(quadShotMaxOffsetLeft, 0f);
                 quadShotMaxOffsetLeft += shotSpacing;
+                child.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, quadShotMaxAngleOffsetRight);
+                quadShotMaxAngleOffsetRight -= quadShotAngleOffset;
+
             }
         }
 
