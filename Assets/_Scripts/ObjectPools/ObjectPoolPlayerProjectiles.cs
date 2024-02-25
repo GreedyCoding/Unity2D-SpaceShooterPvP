@@ -8,11 +8,13 @@ public class ObjectPoolPlayerProjectiles : MonoBehaviour
     //Singleton
     public static ObjectPoolPlayerProjectiles SharedInstance;
 
-    //Reference
-    [SerializeField] PlayerController _playerController;
-
     //Event Channel
     [SerializeField] GunTypeEventChannelSO _gunChangeVoidEventChannelSO;
+
+    [SerializeField] GameObject _singleShotPrefab;
+    [SerializeField] GameObject _doubleShotPrefab;
+    [SerializeField] GameObject _tripleShotPrefab;
+    [SerializeField] GameObject _quadShotPrefab;
 
     //Objects to pool
     [SerializeField] int _amountToPool;
@@ -45,8 +47,8 @@ public class ObjectPoolPlayerProjectiles : MonoBehaviour
 
     private void InitialPoolSetup()
     {
-        SetObjectAndAmount(_playerController.CurrentGunType);
-        SetupPool(_playerController.CurrentGunType);
+        SetObjectAndAmount(GunTypeEnum.singleShot);
+        SetupPool(GunTypeEnum.singleShot);
     }
 
     void SetupPool(GunTypeEnum enumerator)
@@ -75,16 +77,16 @@ public class ObjectPoolPlayerProjectiles : MonoBehaviour
         switch (enumerator)
         {
             case GunTypeEnum.singleShot:
-                _objectToPool = _playerController.SingleShotPrefab;
+                _objectToPool = _singleShotPrefab;
                 break;
             case GunTypeEnum.doubleShot:
-                _objectToPool = _playerController.DoubleShotPrefab;
+                _objectToPool = _doubleShotPrefab;
                 break;
             case GunTypeEnum.tripleShot:
-                _objectToPool = _playerController.TripleShotPrefab;
+                _objectToPool = _tripleShotPrefab;
                 break;
             case GunTypeEnum.quadShot:
-                _objectToPool = _playerController.QuadShotPrefab;
+                _objectToPool = _quadShotPrefab;
                 break;
         }
     }

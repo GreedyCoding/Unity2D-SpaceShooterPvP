@@ -11,7 +11,8 @@ public static class Constants
     public const string MUSIC_VOLUME = "MusicVolume";
     public const string SFX_VOLUME = "SfxVolume";
 
-    // Tags
+    // Tags & Layers
+    public const string MAIN_CAMERA = "MainCamera";
     public const string PLAYER_TAG = "Player";
     public const string ENEMY_TAG = "Enemy";
     public const string PLAYER_PROJECTILE_TAG = "ProjectilePlayer";

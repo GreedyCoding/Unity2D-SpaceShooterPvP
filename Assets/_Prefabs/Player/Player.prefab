@@ -201,9 +201,12 @@ GameObject:
   - component: {fileID: 5200739172091929761}
   - component: {fileID: 6707362854924616744}
   - component: {fileID: 1588124154140578381}
+  - component: {fileID: 8979614833192487907}
+  - component: {fileID: 679205222557092361}
   - component: {fileID: 8471682568378508087}
   - component: {fileID: 9036741871021233920}
   - component: {fileID: 2540734927784105968}
+  - component: {fileID: 7258159130117745073}
   - component: {fileID: 3173682937191467975}
   m_Layer: 6
   m_Name: Player
@@ -276,6 +279,58 @@ MonoBehaviour:
   ShootInput: 0
   DashInput: 0
   EscapeInput: 0
+--- !u!114 &8979614833192487907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3787555689266471988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4259734384
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &679205222557092361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3787555689266471988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd146947b3836141aa4261c9f50057f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 0
+  SyncRotAngleX: 0
+  SyncRotAngleY: 0
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!114 &8471682568378508087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,10 +356,6 @@ MonoBehaviour:
   _healthChangeEventChannelSO: {fileID: 11400000, guid: 507a586a7f0e0444295a1f21b6009b12, type: 2}
   _bulletChangeVoidEventChannelSO: {fileID: 11400000, guid: 425a229423354f74296e6f231eaed7ca, type: 2}
   _movespeedChangeEventChannelSO: {fileID: 11400000, guid: fb5780aadebbd06459d326fbb347ab22, type: 2}
-  SingleShotPrefab: {fileID: 1718028422146164629, guid: 3a6c6317a4286b949af4cd07e5acbfdb, type: 3}
-  DoubleShotPrefab: {fileID: 7612861726610763552, guid: 078c8fbc557844d498f56ce0913e9aa3, type: 3}
-  TripleShotPrefab: {fileID: 6862538647896216339, guid: bb112ed0ca70c3b468842801f6cf1fb5, type: 3}
-  QuadShotPrefab: {fileID: 1488505237500131985, guid: 1d5e37b0d65e7354c91cc94f9df2677a, type: 3}
 --- !u!60 &9036741871021233920
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -382,6 +433,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7258159130117745073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3787555689266471988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &3173682937191467975
 AudioSource:
   m_ObjectHideFlags: 0

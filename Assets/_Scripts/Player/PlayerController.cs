@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour, IHealable
+public class PlayerController : NetworkBehaviour, IHealable
 {
     [Header("Movement Handling")]
     [SerializeField] PlayerInputHandler _playerInputHandler;
@@ -32,12 +30,6 @@ public class PlayerController : MonoBehaviour, IHealable
     [SerializeField] IntToupleEventChannelSO _bulletChangeVoidEventChannelSO;
     [SerializeField] FloatEventChannelSO _movespeedChangeEventChannelSO;
 
-    [Header("Shot Prefabs")]
-    public GameObject SingleShotPrefab;
-    public GameObject DoubleShotPrefab;
-    public GameObject TripleShotPrefab;
-    public GameObject QuadShotPrefab;
-
     //Health
     public int MaxHitPoints { get; private set; }
     public int CurrentHitPoints { get; private set; }
@@ -52,7 +44,6 @@ public class PlayerController : MonoBehaviour, IHealable
 
     //Weapon
     public float FireRate { get; private set; }
-    public float ProjectileSpeed { get; private set; }
     public float ReloadRate { get; private set; }
     public GunTypeEnum CurrentGunType { get; private set; }
 
@@ -64,26 +55,37 @@ public class PlayerController : MonoBehaviour, IHealable
     //Buffs
     private bool _hasShield = false;
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
-        SetGunType(GunTypeEnum.tripleShot, true, false);
-        SetStats();
-
-        _shipSpriteRenderer.material = _defaultShipMaterial;
-
-        _audioSource.clip = _playerShotSound;
+        base.OnNetworkSpawn();
+        Initialize();
     }
 
     private void Update()
     {
+        if (!IsOwner || !Application.isFocused) return;
+
         HandleShoot();
         HandleReload();
     }
 
     private void FixedUpdate()
     {
+        if (!IsOwner || !Application.isFocused) return;
+
         HandleMovement();
-        _mainCamera.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, _mainCamera.transform.position.z);
+    }
+
+    private void Initialize()
+    {
+        SetGunType(GunTypeEnum.tripleShot, true, false);
+        SetStats();
+
+        _mainCamera = Camera.main;
+
+        _shipSpriteRenderer.material = _defaultShipMaterial;
+
+        _audioSource.clip = _playerShotSound;
     }
 
     private void RaisePlayerStatsChangedEvents()
@@ -103,7 +105,6 @@ public class PlayerController : MonoBehaviour, IHealable
         MaxMoveSpeed = 7f;
         MaxBullets = 3;
         FireRate = 3;
-        ProjectileSpeed = 10;
         ReloadRate = 1.75f;
 
         //Set current stats

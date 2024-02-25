@@ -1,28 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerProjectileController : MonoBehaviour
+public class ProjectileController : NetworkBehaviour
 {
-    private PlayerController _playerController;
     private Rigidbody2D _rigidbody;
 
     public float ProjectileDamage { get; private set; }
+    public float ProjectileSpeed { get; private set; }
+
 
     private void Start()
     {
         GetComponents();
         ProjectileDamage = 1f;
+        ProjectileSpeed = 10f;
     }
 
     private void Update()
     {
-        _rigidbody.velocity = transform.up * _playerController.ProjectileSpeed;
+        _rigidbody.velocity = transform.up * ProjectileSpeed;
     }
 
     private void GetComponents()
     {
-        _playerController = GameObject.Find(Constants.PLAYER_TAG).GetComponent<PlayerController>();
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 

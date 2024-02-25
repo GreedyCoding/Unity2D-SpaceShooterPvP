@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class ProjectileParentController : MonoBehaviour
+public class ProjectileParentController : NetworkBehaviour
 {
     // Update is called once per frame
     void Update()
