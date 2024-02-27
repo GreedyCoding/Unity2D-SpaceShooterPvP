@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4259734384
+  GlobalObjectIdHash: 2538559870
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -356,6 +356,10 @@ MonoBehaviour:
   _healthChangeEventChannelSO: {fileID: 11400000, guid: 507a586a7f0e0444295a1f21b6009b12, type: 2}
   _bulletChangeVoidEventChannelSO: {fileID: 11400000, guid: 425a229423354f74296e6f231eaed7ca, type: 2}
   _movespeedChangeEventChannelSO: {fileID: 11400000, guid: fb5780aadebbd06459d326fbb347ab22, type: 2}
+  _singleShotPrefab: {fileID: 1718028422146164629, guid: 3a6c6317a4286b949af4cd07e5acbfdb, type: 3}
+  _doubleShotPrefab: {fileID: 7612861726610763552, guid: 078c8fbc557844d498f56ce0913e9aa3, type: 3}
+  _tripleShotPrefab: {fileID: 6862538647896216339, guid: bb112ed0ca70c3b468842801f6cf1fb5, type: 3}
+  _quadShotPrefab: {fileID: 1488505237500131985, guid: 1d5e37b0d65e7354c91cc94f9df2677a, type: 3}
 --- !u!60 &9036741871021233920
 PolygonCollider2D:
   m_ObjectHideFlags: 0

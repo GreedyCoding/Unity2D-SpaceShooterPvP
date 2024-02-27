@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Transactions;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem.Switch;
 
 public class PlayerController : NetworkBehaviour, IHealable
 {
@@ -30,6 +32,12 @@ public class PlayerController : NetworkBehaviour, IHealable
     [SerializeField] IntToupleEventChannelSO _bulletChangeVoidEventChannelSO;
     [SerializeField] FloatEventChannelSO _movespeedChangeEventChannelSO;
 
+    [Header("Shot Prefabs")]
+    [SerializeField] GameObject _singleShotPrefab;
+    [SerializeField] GameObject _doubleShotPrefab;
+    [SerializeField] GameObject _tripleShotPrefab;
+    [SerializeField] GameObject _quadShotPrefab;
+
     //Health
     public int MaxHitPoints { get; private set; }
     public int CurrentHitPoints { get; private set; }
@@ -46,8 +54,8 @@ public class PlayerController : NetworkBehaviour, IHealable
     public float FireRate { get; private set; }
     public float ReloadRate { get; private set; }
     public GunTypeEnum CurrentGunType { get; private set; }
+    public GameObject CurrentShotPrefab { get; private set; }
 
-    
     //Timers
     private float _nextTimeToReload = 0f;
     private float _nextTimeToFire = 0f;
@@ -124,6 +132,25 @@ public class PlayerController : NetworkBehaviour, IHealable
         }
 
         CurrentGunType = gunType;
+        
+        switch(gunType)
+        {
+            case GunTypeEnum.singleShot:
+                CurrentShotPrefab = _singleShotPrefab;
+                break;
+            case GunTypeEnum.doubleShot:
+                CurrentShotPrefab = _doubleShotPrefab;
+                break;
+            case GunTypeEnum.tripleShot:
+                CurrentShotPrefab = _tripleShotPrefab;
+                break;
+            case GunTypeEnum.quadShot:
+                CurrentShotPrefab = _quadShotPrefab;
+                break;
+            default:
+                CurrentShotPrefab = _singleShotPrefab;
+                break;
+        }
     }
 
     private void HandleMovement()
@@ -195,13 +222,18 @@ public class PlayerController : NetworkBehaviour, IHealable
     /// <summary>   
     /// This function gets player projectiles from the object pool and moves them to the players position
     /// </summary>
-    /// <info>
+    /// <remarks>
     /// Handling of the children of the different projectiles needs to be done first,
     /// Otherwise the rotation and position of the player will missalign with the projectiles
-    /// </info>
+    /// </remarks>
     private void HandlePlayerProjectileInstantiation()
     {
-        GameObject playerProjectile = ObjectPoolPlayerProjectiles.SharedInstance.GetPooledObject();
+        NetworkObject playerProjectileNetworkObject = NetworkObjectPool.Singleton.GetNetworkObject(CurrentShotPrefab, this.transform.position, this.transform.rotation);
+
+        if (playerProjectileNetworkObject.TryGetComponent(out ProjectileParentController projectileParentController))
+        {
+            projectileParentController.ProjectilePrefab = CurrentShotPrefab;
+        }
 
         float shotSpacing = 0.3f;
         float doubleShotMaxOffsetLeft = -0.15f;
@@ -215,7 +247,7 @@ public class PlayerController : NetworkBehaviour, IHealable
 
         if (CurrentGunType == GunTypeEnum.doubleShot)
         {
-            foreach (Transform child in playerProjectile.transform)
+            foreach (Transform child in playerProjectileNetworkObject.transform)
             {
                 child.gameObject.SetActive(true);
                 child.gameObject.transform.position = new Vector2(doubleShotMaxOffsetLeft, 0f);
@@ -224,7 +256,7 @@ public class PlayerController : NetworkBehaviour, IHealable
         }
         else if (CurrentGunType == GunTypeEnum.tripleShot)
         {
-            foreach (Transform child in playerProjectile.transform)
+            foreach (Transform child in playerProjectileNetworkObject.transform)
             {
                 child.gameObject.SetActive(true);
                 child.gameObject.transform.position = Vector2.zero;
@@ -234,7 +266,7 @@ public class PlayerController : NetworkBehaviour, IHealable
         }
         else if (CurrentGunType == GunTypeEnum.quadShot)
         {
-            foreach (Transform child in playerProjectile.transform)
+            foreach (Transform child in playerProjectileNetworkObject.transform)
             {
                 child.gameObject.SetActive(true);
                 child.gameObject.transform.position = new Vector2(quadShotMaxOffsetLeft, 0f);
@@ -245,11 +277,13 @@ public class PlayerController : NetworkBehaviour, IHealable
             }
         }
 
-        playerProjectile.transform.position = this.transform.position;
-        playerProjectile.transform.rotation = this.transform.rotation;
-        playerProjectile.SetActive(true);
+        playerProjectileNetworkObject.transform.position = this.transform.position;
+        playerProjectileNetworkObject.transform.rotation = this.transform.rotation;
 
-        _audioSource.pitch = UnityEngine.Random.Range(0.85f, 1.15f);
+        playerProjectileNetworkObject.gameObject.SetActive(true);
+        playerProjectileNetworkObject.Spawn(true);
+
+        _audioSource.pitch = Random.Range(0.85f, 1.15f);
         _audioSource.Play();
     }
 
