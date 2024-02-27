@@ -8,7 +8,6 @@ public class ProjectileController : NetworkBehaviour
     public float ProjectileDamage { get; private set; }
     public float ProjectileSpeed { get; private set; }
 
-
     private void Start()
     {
         GetComponents();
@@ -33,7 +32,7 @@ public class ProjectileController : NetworkBehaviour
             other.GetComponent<IDamageable>().TakeDamage(ProjectileDamage);
             this.gameObject.SetActive(false);
         }
-        else if (other.gameObject.CompareTag(Constants.BORDER_LEFT_TAG) || other.gameObject.CompareTag(Constants.BORDER_RIGHT_TAG) || other.gameObject.CompareTag(Constants.BORDER_TOP_TAG) || other.gameObject.CompareTag(Constants.BORDER_BOTTOM_TAG))
+        else if(other.gameObject.CompareTag(Constants.BORDER_LEFT_TAG) || other.gameObject.CompareTag(Constants.BORDER_RIGHT_TAG) || other.gameObject.CompareTag(Constants.BORDER_TOP_TAG) || other.gameObject.CompareTag(Constants.BORDER_BOTTOM_TAG))
         {
             this.gameObject.SetActive(false);
         }

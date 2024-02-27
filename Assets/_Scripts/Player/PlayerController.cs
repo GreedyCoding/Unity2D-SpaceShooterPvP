@@ -86,7 +86,7 @@ public class PlayerController : NetworkBehaviour, IHealable
 
     private void Initialize()
     {
-        SetGunType(GunTypeEnum.tripleShot, true, false);
+        SetGunType(GunTypeEnum.singleShot, true, false);
         SetStats();
 
         _mainCamera = Camera.main;
@@ -228,9 +228,12 @@ public class PlayerController : NetworkBehaviour, IHealable
     /// </remarks>
     private void HandlePlayerProjectileInstantiation()
     {
-        NetworkObject playerProjectileNetworkObject = NetworkObjectPool.Singleton.GetNetworkObject(CurrentShotPrefab, this.transform.position, this.transform.rotation);
+        GameObject playerProjectileGO = NetworkObjectPool.Singleton.GetNetworkObject(CurrentShotPrefab, this.transform.position, this.transform.rotation).gameObject;
 
-        if (playerProjectileNetworkObject.TryGetComponent(out ProjectileParentController projectileParentController))
+        playerProjectileGO.transform.position = Vector2.zero;
+        playerProjectileGO.transform.rotation = Quaternion.Euler(Vector3.zero);
+
+        if (playerProjectileGO.TryGetComponent(out ProjectileParentController projectileParentController))
         {
             projectileParentController.ProjectilePrefab = CurrentShotPrefab;
         }
@@ -245,9 +248,17 @@ public class PlayerController : NetworkBehaviour, IHealable
         float quadShotAngleOffset = 5f;
         float quadShotMaxAngleOffsetRight = 7.5f;
 
-        if (CurrentGunType == GunTypeEnum.doubleShot)
+        if(CurrentGunType == GunTypeEnum.singleShot)
         {
-            foreach (Transform child in playerProjectileNetworkObject.transform)
+            foreach (Transform child in playerProjectileGO.transform)
+            {
+                child.gameObject.SetActive(true);
+                child.gameObject.transform.position = Vector2.zero;
+            }
+        }
+        else if (CurrentGunType == GunTypeEnum.doubleShot)
+        {
+            foreach (Transform child in playerProjectileGO.transform)
             {
                 child.gameObject.SetActive(true);
                 child.gameObject.transform.position = new Vector2(doubleShotMaxOffsetLeft, 0f);
@@ -256,7 +267,7 @@ public class PlayerController : NetworkBehaviour, IHealable
         }
         else if (CurrentGunType == GunTypeEnum.tripleShot)
         {
-            foreach (Transform child in playerProjectileNetworkObject.transform)
+            foreach (Transform child in playerProjectileGO.transform)
             {
                 child.gameObject.SetActive(true);
                 child.gameObject.transform.position = Vector2.zero;
@@ -266,7 +277,7 @@ public class PlayerController : NetworkBehaviour, IHealable
         }
         else if (CurrentGunType == GunTypeEnum.quadShot)
         {
-            foreach (Transform child in playerProjectileNetworkObject.transform)
+            foreach (Transform child in playerProjectileGO.transform)
             {
                 child.gameObject.SetActive(true);
                 child.gameObject.transform.position = new Vector2(quadShotMaxOffsetLeft, 0f);
@@ -277,11 +288,10 @@ public class PlayerController : NetworkBehaviour, IHealable
             }
         }
 
-        playerProjectileNetworkObject.transform.position = this.transform.position;
-        playerProjectileNetworkObject.transform.rotation = this.transform.rotation;
+        playerProjectileGO.transform.position = this.transform.position;
+        playerProjectileGO.transform.rotation = this.transform.rotation;
 
-        playerProjectileNetworkObject.gameObject.SetActive(true);
-        playerProjectileNetworkObject.Spawn(true);
+        playerProjectileGO.GetComponent<NetworkObject>().Spawn();
 
         _audioSource.pitch = Random.Range(0.85f, 1.15f);
         _audioSource.Play();

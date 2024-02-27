@@ -9,7 +9,6 @@ public class ProjectileParentController : NetworkBehaviour
 
     private NetworkObject _networkObject;
 
-    // Update is called once per frame
     void Update()
     {
         _networkObject = GetComponent<NetworkObject>();
@@ -28,9 +27,9 @@ public class ProjectileParentController : NetworkBehaviour
         }
         if (!anyChildrenActive)
         {
+            _networkObject.Despawn(false);
             NetworkObjectPool.Singleton.ReturnNetworkObject(_networkObject, ProjectilePrefab);
-            //_networkObject.Despawn(false);
-            //this.gameObject.SetActive(false);
+            this.gameObject.SetActive(false);
         }
     }
 }
