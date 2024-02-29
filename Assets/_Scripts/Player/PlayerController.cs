@@ -54,7 +54,6 @@ public class PlayerController : NetworkBehaviour, IHealable
     public float FireRate { get; private set; }
     public float ReloadRate { get; private set; }
     public GunTypeEnum CurrentGunType { get; private set; }
-    public GameObject CurrentShotPrefab { get; private set; }
 
     //Timers
     private float _nextTimeToReload = 0f;
@@ -62,6 +61,8 @@ public class PlayerController : NetworkBehaviour, IHealable
 
     //Buffs
     private bool _hasShield = false;
+
+    public TeamEnum PlayerTeamEnum = TeamEnum.blue;
 
     public override void OnNetworkSpawn()
     {
@@ -86,7 +87,7 @@ public class PlayerController : NetworkBehaviour, IHealable
 
     private void Initialize()
     {
-        SetGunType(GunTypeEnum.singleShot, true, false);
+        SetGunType(GunTypeEnum.tripleShot, true, false);
         SetStats();
 
         _mainCamera = Camera.main;
@@ -132,25 +133,6 @@ public class PlayerController : NetworkBehaviour, IHealable
         }
 
         CurrentGunType = gunType;
-        
-        switch(gunType)
-        {
-            case GunTypeEnum.singleShot:
-                CurrentShotPrefab = _singleShotPrefab;
-                break;
-            case GunTypeEnum.doubleShot:
-                CurrentShotPrefab = _doubleShotPrefab;
-                break;
-            case GunTypeEnum.tripleShot:
-                CurrentShotPrefab = _tripleShotPrefab;
-                break;
-            case GunTypeEnum.quadShot:
-                CurrentShotPrefab = _quadShotPrefab;
-                break;
-            default:
-                CurrentShotPrefab = _singleShotPrefab;
-                break;
-        }
     }
 
     private void HandleMovement()
@@ -198,101 +180,36 @@ public class PlayerController : NetworkBehaviour, IHealable
             _nextTimeToFire = Time.timeSinceLevelLoad + (1f / FireRate);
             CurrentBullets--;
             _bulletChangeVoidEventChannelSO.RaiseEvent(CurrentBullets, MaxBullets);
+            PlayShotSound();
 
-            switch (CurrentGunType)
-            {
-                case GunTypeEnum.singleShot:
-                    HandlePlayerProjectileInstantiation();
-                    break;
-                case GunTypeEnum.doubleShot:
-                    HandlePlayerProjectileInstantiation();
-                    break;
-                case GunTypeEnum.tripleShot:
-                    HandlePlayerProjectileInstantiation();
-                    break;
-                case GunTypeEnum.quadShot:
-                    HandlePlayerProjectileInstantiation();
-                    break;
-                default:
-                    break;
-            }
+            SpawnProjectileServerRPC();
         }
     }
 
-    /// <summary>   
-    /// This function gets player projectiles from the object pool and moves them to the players position
-    /// </summary>
-    /// <remarks>
-    /// Handling of the children of the different projectiles needs to be done first,
-    /// Otherwise the rotation and position of the player will missalign with the projectiles
-    /// </remarks>
-    private void HandlePlayerProjectileInstantiation()
+    [Rpc(SendTo.Server)]
+    private void SpawnProjectileServerRPC()
     {
-        GameObject playerProjectileGO = NetworkObjectPool.Singleton.GetNetworkObject(CurrentShotPrefab, this.transform.position, this.transform.rotation).gameObject;
-
-        playerProjectileGO.transform.position = Vector2.zero;
-        playerProjectileGO.transform.rotation = Quaternion.Euler(Vector3.zero);
-
-        if (playerProjectileGO.TryGetComponent(out ProjectileParentController projectileParentController))
+        switch (CurrentGunType)
         {
-            projectileParentController.ProjectilePrefab = CurrentShotPrefab;
+            case GunTypeEnum.singleShot:
+                ServerProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.singleShot);
+                break;
+            case GunTypeEnum.doubleShot:
+                ServerProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.doubleShot);
+                break;
+            case GunTypeEnum.tripleShot:
+                ServerProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.tripleShot);
+                break;
+            case GunTypeEnum.quadShot:
+                ServerProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.quadShot);
+                break;
+            default:
+                break;
         }
+    }
 
-        float shotSpacing = 0.3f;
-        float doubleShotMaxOffsetLeft = -0.15f;
-        float quadShotMaxOffsetLeft = -0.45f;
-
-        float tripleShotAngleOffset = 12f;
-        float tripleShotMaxAngleOffsetRight = 12f;
-
-        float quadShotAngleOffset = 5f;
-        float quadShotMaxAngleOffsetRight = 7.5f;
-
-        if(CurrentGunType == GunTypeEnum.singleShot)
-        {
-            foreach (Transform child in playerProjectileGO.transform)
-            {
-                child.gameObject.SetActive(true);
-                child.gameObject.transform.position = Vector2.zero;
-            }
-        }
-        else if (CurrentGunType == GunTypeEnum.doubleShot)
-        {
-            foreach (Transform child in playerProjectileGO.transform)
-            {
-                child.gameObject.SetActive(true);
-                child.gameObject.transform.position = new Vector2(doubleShotMaxOffsetLeft, 0f);
-                doubleShotMaxOffsetLeft += shotSpacing;
-            }
-        }
-        else if (CurrentGunType == GunTypeEnum.tripleShot)
-        {
-            foreach (Transform child in playerProjectileGO.transform)
-            {
-                child.gameObject.SetActive(true);
-                child.gameObject.transform.position = Vector2.zero;
-                child.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, tripleShotMaxAngleOffsetRight);
-                tripleShotMaxAngleOffsetRight -= tripleShotAngleOffset;
-            }
-        }
-        else if (CurrentGunType == GunTypeEnum.quadShot)
-        {
-            foreach (Transform child in playerProjectileGO.transform)
-            {
-                child.gameObject.SetActive(true);
-                child.gameObject.transform.position = new Vector2(quadShotMaxOffsetLeft, 0f);
-                quadShotMaxOffsetLeft += shotSpacing;
-                child.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, quadShotMaxAngleOffsetRight);
-                quadShotMaxAngleOffsetRight -= quadShotAngleOffset;
-
-            }
-        }
-
-        playerProjectileGO.transform.position = this.transform.position;
-        playerProjectileGO.transform.rotation = this.transform.rotation;
-
-        playerProjectileGO.GetComponent<NetworkObject>().Spawn();
-
+    private void PlayShotSound()
+    {
         _audioSource.pitch = Random.Range(0.85f, 1.15f);
         _audioSource.Play();
     }
@@ -307,7 +224,8 @@ public class PlayerController : NetworkBehaviour, IHealable
         _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
-    public void TakeDamage(int damageAmount)
+    [Rpc(SendTo.Server)]
+    public void TakeDamageRPC(int damageAmount)
     {
         StartCoroutine(DamageFlash());
 
@@ -338,9 +256,14 @@ public class PlayerController : NetworkBehaviour, IHealable
         _healthChangeEventChannelSO.RaiseEvent(CurrentHitPoints);
     }
 
+    public void TakeDamage(int damageAmount)
+    {
+        TakeDamageRPC(damageAmount);
+    }
+
     public void TakeDamage(float damageAmount)
     {
-        TakeDamage((int)damageAmount);
+        TakeDamageRPC((int)damageAmount);
     }
 
     public void ProvideHealing(float healAmount)
@@ -390,4 +313,5 @@ public class PlayerController : NetworkBehaviour, IHealable
         _hasShield = false;
         _shieldSpriteRenderer.enabled = false;
     }
+
 }

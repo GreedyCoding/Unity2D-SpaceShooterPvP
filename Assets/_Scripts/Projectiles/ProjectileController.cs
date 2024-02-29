@@ -1,21 +1,27 @@
+using System.Runtime.CompilerServices;
 using Unity.Netcode;
 using UnityEngine;
 
 public class ProjectileController : NetworkBehaviour
 {
     private Rigidbody2D _rigidbody;
+    private Collider2D _collider2D;
 
     public float ProjectileDamage { get; private set; }
     public float ProjectileSpeed { get; private set; }
 
-    private void Start()
+    public TeamEnum ownerTeamEnum;
+
+
+    public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
         GetComponents();
         ProjectileDamage = 1f;
-        ProjectileSpeed = 10f;
+        ProjectileSpeed = 20f;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _rigidbody.velocity = transform.up * ProjectileSpeed;
     }
@@ -27,8 +33,11 @@ public class ProjectileController : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag(Constants.ENEMY_TAG))
+        if(other.gameObject.CompareTag(Constants.PLAYER_TAG))
         {
+            TeamEnum hitTeamEnum = other.GetComponent<PlayerController>().PlayerTeamEnum;
+            if (ownerTeamEnum == hitTeamEnum) return;
+
             other.GetComponent<IDamageable>().TakeDamage(ProjectileDamage);
             this.gameObject.SetActive(false);
         }

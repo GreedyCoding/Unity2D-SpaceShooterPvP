@@ -27,9 +27,17 @@ public class ProjectileParentController : NetworkBehaviour
         }
         if (!anyChildrenActive)
         {
-            _networkObject.Despawn(false);
-            NetworkObjectPool.Singleton.ReturnNetworkObject(_networkObject, ProjectilePrefab);
-            this.gameObject.SetActive(false);
+            if (!IsOwner) return;
+
+            DespawnAndReturnNetworkObjectServerRPC();
         }
+    }
+
+    [Rpc(SendTo.Server)]
+    private void DespawnAndReturnNetworkObjectServerRPC()
+    {
+        _networkObject.Despawn(false);
+        NetworkObjectPool.Singleton.ReturnNetworkObject(_networkObject, ProjectilePrefab);
+        this.gameObject.SetActive(false);
     }
 }

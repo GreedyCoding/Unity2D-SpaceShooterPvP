@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4259734384
+  GlobalObjectIdHash: 2538559870
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -345,6 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInputHandler: {fileID: 1588124154140578381}
   _rigidBody: {fileID: 2540734927784105968}
+  _collider2D: {fileID: 9036741871021233920}
   _mainCamera: {fileID: 0}
   _shipSpriteRenderer: {fileID: 1136766275277409702}
   _damageFlashMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}

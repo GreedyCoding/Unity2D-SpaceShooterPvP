@@ -532,12 +532,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401982818}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1709340221}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &515799379
 GameObject:
@@ -853,7 +853,7 @@ MonoBehaviour:
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 1f4402079921de8419b3d03e05f6137c, type: 2}
-    TickRate: 30
+    TickRate: 60
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
     ConnectionData: 
@@ -1297,6 +1297,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819160844}
   m_CullTransparentMesh: 1
+--- !u!1 &859946733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 859946734}
+  - component: {fileID: 859946735}
+  m_Layer: 0
+  m_Name: ServerProjectileSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &859946734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859946733}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1339111503}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &859946735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859946733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83312c9a642710143ad35568d7830256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _singleShotPrefab: {fileID: 1493396827521801711, guid: 3a6c6317a4286b949af4cd07e5acbfdb, type: 3}
+  _doubleShotPrefab: {fileID: 7612861726610763552, guid: 078c8fbc557844d498f56ce0913e9aa3, type: 3}
+  _tripleShotPrefab: {fileID: 6862538647896216339, guid: bb112ed0ca70c3b468842801f6cf1fb5, type: 3}
+  _quadShotPrefab: {fileID: 1488505237500131985, guid: 1d5e37b0d65e7354c91cc94f9df2677a, type: 3}
 --- !u!1 &962234175
 GameObject:
   m_ObjectHideFlags: 0
@@ -1779,7 +1827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1339111503}
   m_Layer: 0
-  m_Name: _______ObjectPools
+  m_Name: _______EntityManagement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1799,6 +1847,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1284654743}
+  - {fileID: 859946734}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1416681653
@@ -2080,6 +2129,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2119769600}
+  - {fileID: 401982821}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1989692958
@@ -2469,4 +2519,3 @@ SceneRoots:
   - {fileID: 1656892122}
   - {fileID: 1709340221}
   - {fileID: 1339111503}
-  - {fileID: 401982821}
