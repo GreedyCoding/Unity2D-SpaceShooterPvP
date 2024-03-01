@@ -2,9 +2,9 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class ServerProjectileSpawner : NetworkBehaviour
+public class ProjectileSpawner : NetworkBehaviour
 {
-    public static ServerProjectileSpawner Singleton;
+    public static ProjectileSpawner Singleton;
 
     [SerializeField] GameObject _singleShotPrefab;
     [SerializeField] GameObject _doubleShotPrefab;
@@ -66,7 +66,7 @@ public class ServerProjectileSpawner : NetworkBehaviour
 
         foreach (Transform child in playerProjectileGO.transform)
         {
-            child.GetComponent<ProjectileController>().ownerTeamEnum = playerTeamEnum;
+            child.GetComponent<ProjectileController>().OwnerTeamEnum = playerTeamEnum;
         }
 
         //Variables for the spacing and angle offset of the different shot types

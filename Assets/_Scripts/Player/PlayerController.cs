@@ -192,16 +192,16 @@ public class PlayerController : NetworkBehaviour, IHealable
         switch (CurrentGunType)
         {
             case GunTypeEnum.singleShot:
-                ServerProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.singleShot);
+                ProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.singleShot);
                 break;
             case GunTypeEnum.doubleShot:
-                ServerProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.doubleShot);
+                ProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.doubleShot);
                 break;
             case GunTypeEnum.tripleShot:
-                ServerProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.tripleShot);
+                ProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.tripleShot);
                 break;
             case GunTypeEnum.quadShot:
-                ServerProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.quadShot);
+                ProjectileSpawner.Singleton.HandlePlayerProjectileInstantiation(PlayerTeamEnum, this.transform.position, this.transform.rotation, GunTypeEnum.quadShot);
                 break;
             default:
                 break;

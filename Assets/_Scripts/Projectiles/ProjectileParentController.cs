@@ -9,9 +9,13 @@ public class ProjectileParentController : NetworkBehaviour
 
     private NetworkObject _networkObject;
 
-    void Update()
+    private void OnEnable()
     {
         _networkObject = GetComponent<NetworkObject>();
+
+    }
+    void FixedUpdate()
+    {
         DisableIfChildrenAreDead();
     }
 
@@ -27,17 +31,16 @@ public class ProjectileParentController : NetworkBehaviour
         }
         if (!anyChildrenActive)
         {
-            if (!IsOwner) return;
-
-            DespawnAndReturnNetworkObjectServerRPC();
+            DespawnAndReturnNetworkObject();
         }
     }
 
-    [Rpc(SendTo.Server)]
-    private void DespawnAndReturnNetworkObjectServerRPC()
+    private void DespawnAndReturnNetworkObject()
     {
+        if (!IsServer) return;
+
+        this.gameObject.SetActive(false);
         _networkObject.Despawn(false);
         NetworkObjectPool.Singleton.ReturnNetworkObject(_networkObject, ProjectilePrefab);
-        this.gameObject.SetActive(false);
     }
 }

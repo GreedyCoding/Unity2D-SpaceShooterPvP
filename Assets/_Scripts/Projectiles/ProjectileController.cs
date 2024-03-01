@@ -5,12 +5,11 @@ using UnityEngine;
 public class ProjectileController : NetworkBehaviour
 {
     private Rigidbody2D _rigidbody;
-    private Collider2D _collider2D;
 
     public float ProjectileDamage { get; private set; }
     public float ProjectileSpeed { get; private set; }
 
-    public TeamEnum ownerTeamEnum;
+    public TeamEnum OwnerTeamEnum;
 
 
     public override void OnNetworkSpawn()
@@ -33,10 +32,12 @@ public class ProjectileController : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag(Constants.PLAYER_TAG))
+        if (!IsServer) return;
+
+        if (other.gameObject.CompareTag(Constants.PLAYER_TAG))
         {
             TeamEnum hitTeamEnum = other.GetComponent<PlayerController>().PlayerTeamEnum;
-            if (ownerTeamEnum == hitTeamEnum) return;
+            if (OwnerTeamEnum == hitTeamEnum) return;
 
             other.GetComponent<IDamageable>().TakeDamage(ProjectileDamage);
             this.gameObject.SetActive(false);
