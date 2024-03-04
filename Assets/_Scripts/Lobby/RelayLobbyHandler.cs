@@ -133,7 +133,27 @@ public class RelayLobbyHandler : PersistentSingleton<RelayLobbyHandler>
         }
         catch (LobbyServiceException ex)
         {
-            Debug.LogError($"Failed to guick join lobby: {ex.Message}");
+            Debug.LogError($"Failed to quick join lobby: {ex.Message}");
+        }
+    }
+
+    public async Task JoinLobbyWithCode(string lobbyCode)
+    {
+        try
+        {
+            _currentLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode);
+            _pollForUpdatesTimer.Start();
+
+            string relayJoinCode = _currentLobby.Data[KEY_JOIN_CODE].Value;
+            JoinAllocation joinAllocation = await JoinRelay(relayJoinCode);
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, _connectionType));
+
+            NetworkManager.Singleton.StartClient();
+        }
+        catch (LobbyServiceException ex)
+        {
+            Debug.LogError($"Failed to join lobby with code {lobbyCode}: {ex.Message}");
         }
     }
 

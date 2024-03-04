@@ -67,6 +67,10 @@ public class PlayerController : NetworkBehaviour, IHealable
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        if(this.OwnerClientId % 2 == 0)
+        {
+            PlayerTeamEnum = TeamEnum.red;
+        }
         Initialize();
     }
 
